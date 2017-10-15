@@ -1,10 +1,16 @@
 import React from 'react'
 import { Howl } from 'howler'
 import raf from 'raf' // requestAnimationFrame polyfill
-import { difference, findIndex, pull } from 'lodash';
+import { throttle, difference, findIndex, pull } from 'lodash';
 
 // import { SSString } from 'react-sevenseg';
 import { PlayerUI } from './playerUI';
+
+function callHowler(howl, method, ...args) {
+  if (howl && howl._sounds) {
+    return howl[method](...args);
+  }
+}
 
 /*
  * Has three howlers for current/prev/next.
@@ -56,7 +62,7 @@ class FullControl extends React.Component {
     if (idx === currentIndex) {
       state.loaded = true;
     }
-    console.log('loaded', idx);
+    console.log('loaded', idx, this.howlers[idx]._src);
     this.setState(state);
   }
 
@@ -115,13 +121,13 @@ class FullControl extends React.Component {
   }
 
   currentPlayerIndex = () => {
-    return this.currentIdx || 0;
+    return this.state.currentIdx || 0;
   };
   prevPlayerIndex = () => {
-    return this.prevIdx || 0;
+    return this.state.prevIdx || 1;
   };
   nextPlayerIndex = () => {
-    return this.nextIdx || 0;
+    return this.state.nextIdx || 2;
   };
   playerSource = (idx = 0) => {
     const { src, prev, next } = this.props;
@@ -149,7 +155,7 @@ class FullControl extends React.Component {
   }
 
   getCurrentHowler = () => {
-    return this.howlers[0];
+    return this.howlers[this.currentPlayerIndex()];
   }
 
   initHowlers = () => {
@@ -181,14 +187,16 @@ class FullControl extends React.Component {
 
   setPlayerSources = (src, prev, next) => {
     const sources = this.howlers.map((howl, idx) => {
+      callHowler(howl, 'pause');
       return howl._src;
     });
+    console.log(sources);
     const remains = [0, 1, 2];
     const required = [src, prev, next];
     const indexNames = ['currentIdx', 'prevIdx', 'nextIdx'];
     const updatedIndice = {};
     required.map((resource, i) => {
-      const idx = findIndex(sources, s => s === resource);
+      const idx = findIndex(sources, s => resource.includes(s));
       if (resource && idx >= 0) {
         updatedIndice[indexNames[i]] = idx;
         pull(remains, idx);
@@ -199,7 +207,9 @@ class FullControl extends React.Component {
         const idx = remains.shift();
         updatedIndice[indexNames[i]] = idx;
         const howler = this.howlers[idx];
-        if(howler.state() === 'loaded') {
+        console.log(howler._state);
+        if (howler._state) {
+          howler.unload();
           howler.unload();
         }
         this.howlers[idx] = new Howl(this.getHowlerProps(idx, resource));
@@ -210,23 +220,34 @@ class FullControl extends React.Component {
         this.setState({ playStates, loadStates, durations });
       }
     });
-    Object.assign(this, updatedIndice);
+    console.log(updatedIndice);
+    callHowler(this.howlers[updatedIndice.prevIdx], 'pause');
+    callHowler(this.howlers[updatedIndice.nextIdx], 'pause');
+    this.setState(updatedIndice);
   };
+
+  updateHowler = throttle((props) => {
+    const { playing, mute, loop, volume } = props;
+    const howler = this.getCurrentHowler();
+    if (playing) {
+      if (!callHowler(howler, 'playing')) {
+        howler.play();
+      }
+    } else {
+      if (callHowler(howler, 'playing')) {
+        howler.pause();
+      }
+    }
+    callHowler(howler, 'mute', props.mute);
+    callHowler(howler, 'loop', props.loop);
+    callHowler(howler, 'volume', props.volume);
+  }, 200);
 
   render () {
     const { src, prev, next } = this.props;
     const { seek, durations, loop, mute, volume, playing, loaded } = this.state;
-    const howler = this.getCurrentHowler();
-    if (playing) {
-      if (!howler.playing()) {
-        howler.play();
-      }
-    } else {
-      if (howler.playing()) {
-        howler.pause();
-      }
-    }
     const duration = durations[this.currentPlayerIndex()];
+    this.updateHowler({ playing, loop, mute, volume });
     const uiProps = {
       playing,
       loading: !loaded,
