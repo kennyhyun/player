@@ -54,7 +54,7 @@ class FullControl extends React.Component {
     const currentIndex = this.currentPlayerIndex();
     const { loadStates, durations } = this.state;
     loadStates[idx] = true;
-    durations[idx] = this.howlers[idx].duration();
+    durations[idx] = callHowler(this.howlers[idx], 'duration');
     const state = {
       loadStates,
       durations,
@@ -151,6 +151,7 @@ class FullControl extends React.Component {
       loop,
       mute,
       volume,
+      html5: true,
     }
   }
 
@@ -190,7 +191,7 @@ class FullControl extends React.Component {
       callHowler(howl, 'pause');
       return howl._src;
     });
-    console.log(sources);
+    // console.log(sources);
     const remains = [0, 1, 2];
     const required = [src, prev, next];
     const indexNames = ['currentIdx', 'prevIdx', 'nextIdx'];
@@ -207,7 +208,7 @@ class FullControl extends React.Component {
         const idx = remains.shift();
         updatedIndice[indexNames[i]] = idx;
         const howler = this.howlers[idx];
-        console.log(howler._state);
+        // console.log(howler._state);
         if (howler._state) {
           howler.unload();
           howler.unload();
@@ -220,7 +221,7 @@ class FullControl extends React.Component {
         this.setState({ playStates, loadStates, durations });
       }
     });
-    console.log(updatedIndice);
+    // console.log(updatedIndice);
     callHowler(this.howlers[updatedIndice.prevIdx], 'pause');
     callHowler(this.howlers[updatedIndice.nextIdx], 'pause');
     this.setState(updatedIndice);
@@ -243,6 +244,13 @@ class FullControl extends React.Component {
     callHowler(howler, 'volume', props.volume);
   }, 200);
 
+  logStatus = throttle(() => {
+    this.howlers.map((howler, idx) => {
+      howler && console.log(`howler${idx}`, howler._state, callHowler(howler, 'playing') ? 'playing' : '', howler._src);
+    });
+    console.log('----');
+  }, 1000);
+
   render () {
     const { src, prev, next } = this.props;
     const { seek, durations, loop, mute, volume, playing, loaded } = this.state;
@@ -257,6 +265,7 @@ class FullControl extends React.Component {
       seek,
       duration,
     }
+    // this.logStatus();
     return (
       <div className='full-control'>
         <PlayerUI
