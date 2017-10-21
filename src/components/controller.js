@@ -2,9 +2,12 @@ import React from 'react'
 import { Howl } from 'howler'
 import raf from 'raf' // requestAnimationFrame polyfill
 import { throttle, difference, findIndex, pull } from 'lodash';
+import { setDebug, propTypes, defaultProps } from 'proptypes-helper';
 
 // import { SSString } from 'react-sevenseg';
 import { PlayerUI } from './playerUI';
+import Cassette from './cassette';
+setDebug(true);
 
 function callHowler(howl, method, ...args) {
   if (howl && howl._sounds) {
@@ -55,6 +58,13 @@ class FullControl extends React.Component {
     const { loadStates, durations } = this.state;
     loadStates[idx] = true;
     durations[idx] = callHowler(this.howlers[idx], 'duration');
+    if (idx === this.state.prevIdx) {
+      this.props.onLoaded.prev(durations[idx]);
+    } else if (idx === this.state.nextIdx) {
+      this.props.onLoaded.next(durations[idx]);
+    } else {
+      this.props.onLoaded.src(durations[idx]);
+    }
     const state = {
       loadStates,
       durations,
@@ -77,6 +87,8 @@ class FullControl extends React.Component {
 
   handleOnEnd = (idx = 0) => {
     const { playStates } = this.state;
+    // this.getCurrentHowler().stop()
+    this.props.onEnded();
     playStates[idx] = false;
     this.setState({
       playStates
@@ -248,12 +260,12 @@ class FullControl extends React.Component {
     this.howlers.map((howler, idx) => {
       howler && console.log(`howler${idx}`, howler._state, callHowler(howler, 'playing') ? 'playing' : '', howler._src);
     });
-    console.log('----');
+    console.log(this.props.offset, '----');
   }, 1000);
 
   render () {
-    const { src, prev, next } = this.props;
-    const { seek, durations, loop, mute, volume, playing, loaded } = this.state;
+    const { offset, src, prev, next } = this.props;
+    const { seek = 0, durations, loop, mute, volume, playing, loaded } = this.state;
     const duration = durations[this.currentPlayerIndex()];
     this.updateHowler({ playing, loop, mute, volume });
     const uiProps = {
@@ -265,9 +277,11 @@ class FullControl extends React.Component {
       seek,
       duration,
     }
+    const pos = offset + seek;
     // this.logStatus();
     return (
       <div className='full-control'>
+        <Cassette pos={pos} length={1800} velocity={playing ? 1 : 0} />
         <PlayerUI
           {...uiProps}
           handleMuteToggle={this.handleMuteToggle}
@@ -280,5 +294,20 @@ class FullControl extends React.Component {
     )
   }
 }
+
+const types = {
+  required: {
+    src: '',
+  },
+  optional: {
+    onLoaded: { src: () => {}, prev: () => {}, next: () => {} },
+    prev: '',
+    next: '',
+    offset: 0,
+  }
+};
+
+FullControl.propTypes = { ...propTypes(types) };
+FullControl.defaultProps = { ...defaultProps(types) };
 
 export default FullControl;

@@ -6,11 +6,13 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "howler": "^2.0.5",
+    "proptypes-helper": "0.1.2",
     "raf": "^3.4.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-scripts": "1.0.14",
-    "react-sevenseg": "^0.0.2"
+    "react-sevenseg": "^0.0.2",
+    "styled-components": "2.2.1"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 // import Howl from 'howler';
 import FullControl from './controller';
 import Button from './Button';
-
 // import './player.css';
 
 export class Player extends Component {
@@ -14,6 +13,7 @@ export class Player extends Component {
     listB.map(src => src.map((val, i) =>
        src[i] = encodeURIComponent(decodeURIComponent(val))));
     this.state = {
+      durations: [],
       side: 'A',
       pos: 0,
       length: 60,
@@ -22,6 +22,7 @@ export class Player extends Component {
       listA,
       listB
     }
+    this.loading = [];
   }
 
   ComponentDidMount = () => {
@@ -29,6 +30,11 @@ export class Player extends Component {
 
   nav = (step = 1) => {
     const { index: prev, endIndex } = this.state;
+    if (this.loading.indexOf(true) >= 0) {
+      console.log(this.loading);
+      console.log('skip since loading');
+      return;
+    } 
     const index = Number(prev) + Number(step);
     if (index < 0) return;
     if (index >= endIndex) return;
@@ -41,10 +47,47 @@ export class Player extends Component {
     if (i < 0 || i >= endIndex) {
       return [];
     }
+    let src = '';
     if (side === 'A') {
-      return listA[i];
+      src = listA[i];
+    } else {
+      src = listB[i];
     }
-    return listB[i];
+    return src;
+  };
+
+  setDuration = (pos = 0, duration) => {
+    const { loaded, durations, index } = this.state;
+    const newIndex = Number(index) + Number(pos);
+    if (newIndex >= 0) {
+      durations[newIndex] = duration;
+      this.loading[newIndex] = false;
+      this.setState({ durations });
+    }
+  };
+
+  getOffset = () => {
+    const { durations, index } = this.state;
+    const ret = durations.reduce((sum, val, idx) => {
+      if (index > idx) {
+        sum += Number(val);
+      }
+      return sum;
+    }, 0);
+    console.log('getOffset', ret, durations);
+    return ret;
+  };
+
+  componentWillUpdate = (nextProps, nextState) => {
+    const { index: nextIndex } = nextState;
+    const { index } = this.state;
+    if (index !== nextIndex) {
+      console.log('get loading status');
+    }
+    // if (src) {
+    //   console.log('set', i, 'true');
+    //   this.loading[i] = true;
+    // }
   };
 
   render = () => {
@@ -54,9 +97,16 @@ export class Player extends Component {
 
     return (<div>
       <FullControl
+        offset={this.getOffset()}
         src={this.getSource(0)}
         prev={this.getSource(-1)}
         next={this.getSource(1)}
+        onEnded={() => this.nav(1)}
+        onLoaded={{
+          src: duration => {this.setDuration(0, duration)},
+          prev: duration => {this.setDuration(-1, duration)},
+          next: duration => {this.setDuration(1, duration)},
+        }}
       />
       <Button onClick={() => this.nav(-1)}>
       prev
