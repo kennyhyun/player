@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import { SSString } from 'react-sevenseg';
 import { Player } from './components/player';
 
 const sourceList = [

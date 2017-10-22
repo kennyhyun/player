@@ -4,7 +4,6 @@ import raf from 'raf' // requestAnimationFrame polyfill
 import { throttle, difference, findIndex, pull } from 'lodash';
 import { setDebug, propTypes, defaultProps } from 'proptypes-helper';
 
-// import { SSString } from 'react-sevenseg';
 import { PlayerUI } from './playerUI';
 import Cassette from './cassette';
 setDebug(true);
