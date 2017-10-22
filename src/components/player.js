@@ -108,11 +108,11 @@ export class Player extends Component {
           next: duration => {this.setDuration(1, duration)},
         }}
       />
-      <Button onClick={() => this.nav(-1)}>
-      prev
+      <Button className="digital-control" onClick={() => this.nav(-1)}>
+        <span title="Previous" className="fa fa-fast-backward" />
       </Button>
-      <Button onClick={() => this.nav(1)}>
-      next
+      <Button className="digital-control" onClick={() => this.nav(1)}>
+        <span title="Next" className="fa fa-fast-forward" />
       </Button>
     </div>);
   };

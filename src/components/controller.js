@@ -26,6 +26,8 @@ class FullControl extends React.Component {
     this.howlers = [];
 
     this.state = {
+      seek: 0,
+      position: 0,
       playStates: [],
       loadStates: [],
       durations: [],
@@ -40,14 +42,50 @@ class FullControl extends React.Component {
 
   componentWillUnmount = () => {
     this.clearRAF()
-  }
+  };
+
+  handleRewind = (rewind) => {
+    const { playing } = this.state;
+    if (rewind) {
+      this.setState({ rewind, ff: false });
+      if (!playing) {
+        console.log('rew 6');
+        this.rew(6);
+      }
+    } else if (playing) {
+      this.setState({ rewind });
+    }
+  };
+
+  rew = (num) => {
+    const newSeek = Number(this.state.seek || 0) - Number(num || 0);
+    this.setState({ seek: newSeek >= 0 ? newSeek : 0 });
+  };
+
+  ff = (num) => {
+    const newSeek = Number(this.state.seek || 0) + Number(num || 0);
+    this.setState({ seek: newSeek });
+  };
+
+  handleFastForward = (ff) => {
+    const { playing } = this.state;
+    if (ff) {
+      this.setState({ ff, rewind: false });
+      if (!playing) {
+        console.log('ff 6');
+        this.ff(6);
+      }
+    } else if (playing) {
+      this.setState({ ff });
+    }
+  };
 
   handleToggle = () => {
     const playing = !this.state.playing;
     this.setState({
       playing,
     })
-  }
+  };
 
   handleVolumeChange = e => {
     this.setState({volume: parseFloat(e.target.value)});
@@ -99,6 +137,8 @@ class FullControl extends React.Component {
   handleStop = () => {
     this.getCurrentHowler().stop()
     this.setState({
+      ff: false,
+      rewind: false,
       playing: false // Need to update our local state so we don't immediately invoke autoplay
     })
     this.renderSeekPos()
@@ -196,6 +236,15 @@ class FullControl extends React.Component {
     if (difference([src, prev, next], [psrc, pprev, pnext]).length) {
       this.setPlayerSources(src, prev, next);
     }
+    if (!playing) {
+      if (this.state.ff) {
+        setTimeout(() => this.ff(6), 200);
+      } else if (this.state.rewind) {
+        if (this.state.seek) {
+          setTimeout(() => this.rew(6), 200);
+        }
+      }
+    }
   };
 
   setPlayerSources = (src, prev, next) => {
@@ -240,7 +289,7 @@ class FullControl extends React.Component {
   };
 
   updateHowler = throttle((props) => {
-    const { playing, mute, loop, volume } = props;
+    const { rate, playing, mute, loop, volume } = props;
     const howler = this.getCurrentHowler();
     if (playing) {
       if (!callHowler(howler, 'playing')) {
@@ -254,20 +303,24 @@ class FullControl extends React.Component {
     callHowler(howler, 'mute', props.mute);
     callHowler(howler, 'loop', props.loop);
     callHowler(howler, 'volume', props.volume);
+    if (rate && rate !== howler._rate) {
+      callHowler(howler, 'rate', rate);
+    } else if (howler._rate !== 1) {
+      callHowler(howler, 'rate', 1);
+    }
   }, 200);
 
   logStatus = throttle(() => {
     this.howlers.map((howler, idx) => {
       howler && console.log(`howler${idx}`, howler._state, callHowler(howler, 'playing') ? 'playing' : '', howler._src);
     });
-    console.log(this.props.offset, '----');
+    console.log(this.props.offset, '----', this.state.seek);
   }, 1000);
 
   render () {
     const { offset, src, prev, next } = this.props;
-    const { seek = 0, durations, loop, mute, volume, playing, loaded } = this.state;
+    const { ff, rewind, seek = 0, durations, loop, mute, volume, playing, loaded } = this.state;
     const duration = durations[this.currentPlayerIndex()];
-    this.updateHowler({ playing, loop, mute, volume });
     const uiProps = {
       playing,
       loading: !loaded,
@@ -277,18 +330,47 @@ class FullControl extends React.Component {
       seek,
       duration,
     }
+    let velocity = playing ? 1 : 0;
+    let audioVolume = volume;
+    let rate = 0;
+    if (playing) {
+      if (rewind) {
+        audioVolume *= 0.5;
+        velocity = -4;
+        rate = velocity;
+      } else if (ff) {
+        audioVolume *= 0.5;
+        velocity = 4;
+        rate = velocity;
+      }
+    } else {
+      /*
+      if (rewind) {
+        velocity = -8;
+        rate = velocity;
+      } else if (ff) {
+        velocity = 8;
+        rate = velocity;
+      }
+      */
+    }
+    this.updateHowler({ playing, loop, mute, volume: audioVolume, rate });
     const pos = offset + seek;
     // this.logStatus();
     return (
       <div className='full-control'>
-        <Cassette pos={pos} length={1800} velocity={playing ? 1 : 0} />
+        <Cassette pos={pos} length={1800} velocity={velocity} />
         <PlayerUI
           {...uiProps}
+          pos={pos}
           handleMuteToggle={this.handleMuteToggle}
           handleLoopToggle={this.handleLoopToggle}
           handleToggle={this.handleToggle}
           handleStop={this.handleStop}
           handleVolumeChange={this.handleVolumeChange}
+          handleFastForward={this.handleFastForward}
+          handleRewind={this.handleRewind}
+          velocity={velocity}
         />
       </div>
     )

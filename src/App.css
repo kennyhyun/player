@@ -26,3 +26,107 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+input[type=range][orient=vertical]
+{
+  writing-mode: bt-lr; /* IE */
+  -webkit-appearance: slider-vertical; /* WebKit */
+  width: 8px;
+  height: 85px;
+  padding: 0 5px;
+}
+td .volume {
+  padding-left: 10px;
+}
+td .odometer {
+  border: inset dimgray 1px;
+}
+
+button.control {
+  width: 70px;
+  height: 90px;
+  margin-right: 5px;
+  border-radius: 5px;
+  color: #666;
+  text-shadow: 1.5px 1.5px 3px white, 0 0 3px black;
+  outline-style:none;
+  box-shadow:none;
+}
+button.control:active {
+  opacity: 0.8;
+}
+button.digital-control {
+  border-radius: 5px;
+  margin: 30px 10px;
+  width: 70px;
+  height: 30px;
+}
+table.no-border h4,
+table.no-border p {
+  margin: 0;
+}
+div.toggle {
+  display: inline-block;
+  padding: 0 5px;
+}
+
+.tgl {
+  display: none;
+}
+.tgl, .tgl:after, .tgl:before, .tgl *, .tgl *:after, .tgl *:before, .tgl + .tgl-btn {
+  box-sizing: border-box;
+}
+.tgl::-moz-selection, .tgl:after::-moz-selection, .tgl:before::-moz-selection, .tgl *::-moz-selection, .tgl *:after::-moz-selection, .tgl *:before::-moz-selection, .tgl + .tgl-btn::-moz-selection {
+  background: none;
+}
+.tgl::selection, .tgl:after::selection, .tgl:before::selection, .tgl *::selection, .tgl *:after::selection, .tgl *:before::selection, .tgl + .tgl-btn::selection {
+  background: none;
+}
+.tgl + .tgl-btn {
+  margin: 0 0 0.5rem;
+  outline: 0;
+  display: block;
+  width: 3em;
+  height: 1.6em;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.tgl + .tgl-btn:after, .tgl + .tgl-btn:before {
+  position: relative;
+  display: block;
+  content: "";
+  width: 50%;
+  height: 100%;
+}
+.tgl + .tgl-btn:after {
+  left: 0;
+}
+.tgl + .tgl-btn:before {
+  display: none;
+}
+.tgl:checked + .tgl-btn:after {
+  left: 50%;
+}
+
+
+.tgl-light + .tgl-btn {
+  background: #f0f0f0;
+  border-radius: 2em;
+  padding: 2px;
+  -webkit-transition: all .4s ease;
+  transition: all .4s ease;
+}
+.tgl-light + .tgl-btn:after {
+  border-radius: 50%;
+  background: #fff;
+  -webkit-transition: all .2s ease;
+  transition: all .2s ease;
+}
+.tgl-light:checked + .tgl-btn {
+  background: #9FD6AE;
+}
+
