@@ -80,11 +80,13 @@ class FullControl extends React.Component {
     }
   };
 
-  handleToggle = () => {
-    const playing = !this.state.playing;
-    this.setState({
-      playing,
-    })
+  handleToggle = (pause) => {
+    const { playing, pausing } = this.state;
+    if (pause) {
+      this.setState({ pausing: !pausing });
+    } else {
+      this.setState({ playing: !playing });
+    }
   };
 
   handleVolumeChange = e => {
@@ -124,14 +126,16 @@ class FullControl extends React.Component {
   }
 
   handleOnEnd = (idx = 0) => {
-    const { playStates } = this.state;
+    const { playStates, loop } = this.state;
     // this.getCurrentHowler().stop()
-    this.props.onEnded();
-    playStates[idx] = false;
-    this.setState({
-      playStates
-    })
-    this.clearRAF()
+    if (!loop) {
+      this.props.onEnded();
+      playStates[idx] = false;
+      this.setState({
+        playStates
+      })
+      this.clearRAF()
+    }
   }
 
   handleStop = () => {
@@ -203,7 +207,7 @@ class FullControl extends React.Component {
       loop,
       mute,
       volume,
-      html5: true,
+      falsehtml5: true,
     }
   }
 
@@ -224,13 +228,7 @@ class FullControl extends React.Component {
 
   componentDidUpdate = (prevProps, prevState) => {
     const { playing = false } = this.state;
-    const { playing: prevPlaying = false } = prevState;
-    if (!prevPlaying && playing) {
-      console.log('need play');
-      // this.getCurrentHowler().play();
-    } else if (prevPlaying && !playing) {
-      console.log('need pause');
-    }
+    const { playing: prevPlaying = false,  } = prevState;
     const { src, prev, next } = this.props;
     const { src: psrc, prev: pprev, next: pnext } = prevProps;
     if (difference([src, prev, next], [psrc, pprev, pnext]).length) {
@@ -289,13 +287,13 @@ class FullControl extends React.Component {
   };
 
   updateHowler = throttle((props) => {
-    const { rate, playing, mute, loop, volume } = props;
+    const { rate, pausing, playing, mute, loop, volume } = props;
     const howler = this.getCurrentHowler();
-    if (playing) {
+    if (playing && !pausing) {
       if (!callHowler(howler, 'playing')) {
         howler.play();
       }
-    } else {
+    } else if (playing && pausing) {
       if (callHowler(howler, 'playing')) {
         howler.pause();
       }
@@ -319,10 +317,11 @@ class FullControl extends React.Component {
 
   render () {
     const { offset, src, prev, next } = this.props;
-    const { ff, rewind, seek = 0, durations, loop, mute, volume, playing, loaded } = this.state;
+    const { ff, rewind, seek = 0, durations, loop, mute, volume, pausing, playing, loaded } = this.state;
     const duration = durations[this.currentPlayerIndex()];
     const uiProps = {
       playing,
+      pausing,
       loading: !loaded,
       loop,
       mute,
@@ -330,7 +329,7 @@ class FullControl extends React.Component {
       seek,
       duration,
     }
-    let velocity = playing ? 1 : 0;
+    let velocity = (playing && !pausing) ? 1 : 0;
     let audioVolume = volume;
     let rate = 0;
     if (playing) {
@@ -354,7 +353,7 @@ class FullControl extends React.Component {
       }
       */
     }
-    this.updateHowler({ playing, loop, mute, volume: audioVolume, rate });
+    this.updateHowler({ playing, pausing, loop, mute, volume: audioVolume, rate });
     const pos = offset + seek;
     // this.logStatus();
     return (

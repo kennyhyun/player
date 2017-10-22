@@ -11,6 +11,7 @@ function fixed(val, digits, fixed) {
 
 export const PlayerUI = ({
   playing,
+  pausing,
   pos,
   loading,
   loop,
@@ -35,10 +36,12 @@ export const PlayerUI = ({
       <tr>
         <td rowspan="2">
 
-          <Button className="control" onClick={handleToggle}>
+          <Button className={`control ${pausing ? 'active' : ''}`}
+            onClick={() => handleToggle(true)}>
             <span title="Pause" className="fa fa-pause" />
           </Button>
-          <Button className="control" onClick={() => !playing && handleToggle() }>
+          <Button className={`control ${playing ? 'active' : ''}`}
+            onClick={() => !playing && handleToggle()}>
             <span title="Play" className="fa fa-play" />
           </Button>
           <Button className="control" onClick={handleStop}>

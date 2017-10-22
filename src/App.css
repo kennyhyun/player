@@ -52,6 +52,10 @@ button.control {
   outline-style:none;
   box-shadow:none;
 }
+button.control.active {
+  opacity: 0.8;
+  border-style: inset;
+}
 button.control:active {
   opacity: 0.8;
 }
