@@ -1,0 +1,23 @@
+{
+  "name": "tape-player",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "/npm-react-sevenseg",
+  "dependencies": {
+    "classnames": "^2.2.6",
+    "howler": "^2.0.15",
+    "proptypes-helper": "0.1.2",
+    "raf": "^3.4.1",
+    "react": "^16.6.1",
+    "react-dom": "^16.6.1",
+    "react-jss": "7.2.0",
+    "react-scripts": "1.0.14",
+    "styled-components": "2.2.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

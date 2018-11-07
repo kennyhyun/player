@@ -3,9 +3,9 @@ import { Howl } from 'howler'
 import raf from 'raf' // requestAnimationFrame polyfill
 import { throttle, difference, findIndex, pull } from 'lodash';
 import { setDebug, propTypes, defaultProps } from 'proptypes-helper';
+import Cassette from 'cassette-tape';
 
 import { PlayerUI } from './playerUI';
-import Cassette from './cassette';
 setDebug(true);
 
 function callHowler(howl, method, ...args) {
