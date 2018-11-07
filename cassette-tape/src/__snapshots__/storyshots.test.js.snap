@@ -3,6 +3,7 @@
 exports[`Storyshots Cassete tapes Cassette 1`] = `
 <div>
   <div
+    onClick={[Function]}
     style={
       Object {
         "backgroundImage": "url(/Cassette.svg)",
@@ -19,12 +20,12 @@ exports[`Storyshots Cassete tapes Cassette 1`] = `
           Object {
             "backgroundColor": "black",
             "borderRadius": "1000px",
-            "height": "258.4px",
+            "height": "263.8px",
             "left": "180px",
             "position": "absolute",
             "top": "179px",
-            "transform": "translate3d(0, 0, 0) translateX(-129.2px) translateY(-129.2px)",
-            "width": "258.4px",
+            "transform": "translate3d(0, 0, 0) translateX(-131.9px) translateY(-131.9px)",
+            "width": "263.8px",
           }
         }
       />
@@ -43,7 +44,7 @@ exports[`Storyshots Cassete tapes Cassette 1`] = `
         }
       />
       <div
-        className="sc-bdVaJa dWWrIH"
+        className="sc-bdVaJa jDMoKP"
         radius={89.9}
         style={
           Object {
@@ -59,12 +60,12 @@ exports[`Storyshots Cassete tapes Cassette 1`] = `
           Object {
             "backgroundColor": "black",
             "borderRadius": "1000px",
-            "height": "148.8px",
+            "height": "139.2px",
             "left": "431px",
             "position": "absolute",
             "top": "179px",
-            "transform": "translate3d(0, 0, 0) translateX(-74.4px) translateY(-74.4px)",
-            "width": "148.8px",
+            "transform": "translate3d(0, 0, 0) translateX(-69.6px) translateY(-69.6px)",
+            "width": "139.2px",
           }
         }
       />
@@ -83,7 +84,7 @@ exports[`Storyshots Cassete tapes Cassette 1`] = `
         }
       />
       <div
-        className="sc-bdVaJa lcgKjf"
+        className="sc-bdVaJa ZqiDC"
         radius={89.9}
         style={
           Object {
