@@ -1,6 +1,7 @@
 import React from 'react';
 import { propTypes, defaultProps } from 'proptypes-helper';
-import styled, { keyframes } from 'styled-components'
+import styled, { keyframes } from 'styled-components';
+import { onlyUpdateForKeys } from 'recompose';
 
 const rotate = p => keyframes`
   from {
@@ -36,5 +37,4 @@ const types = {
 Wheel.propTypes = { ...propTypes(types) };
 Wheel.defaultProps = { ...defaultProps(types) };
 
-export default Wheel;
-
+export default onlyUpdateForKeys(['style', 'radius', 'backgroundImage', 'velocity'])(Wheel);

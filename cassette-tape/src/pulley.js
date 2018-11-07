@@ -1,5 +1,6 @@
 import React from 'react';
 import { propTypes, defaultProps } from 'proptypes-helper';
+import { onlyUpdateForKeys } from 'recompose';
 import Wheel from './wheel';
 
 export const Pulley = (props) => {
@@ -8,9 +9,7 @@ export const Pulley = (props) => {
     backgroundImage={'url(/pulley.svg)'}
     velocity={velocity}
     radius={radius}
-    style={{
-      ...style
-    }}
+    style={style}
   />);
 }
 
@@ -27,5 +26,4 @@ const types = {
 Pulley.propTypes = { ...propTypes(types) };
 Pulley.defaultProps = { ...defaultProps(types) };
 
-export default Pulley;
-
+export default onlyUpdateForKeys(['style', 'radius', 'velocity'])(Pulley);

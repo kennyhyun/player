@@ -1,5 +1,6 @@
 import React from 'react';
 import { propTypes, defaultProps } from 'proptypes-helper';
+import { onlyUpdateForKeys } from 'recompose';
 import Wheel from './wheel';
 
 export const Axis = (props) => {
@@ -10,9 +11,7 @@ export const Axis = (props) => {
     backgroundImage={'url(/wheel.svg)'}
     velocity={velocity}
     radius={radiusPx * 2}
-    style={{
-      ...style
-    }}
+    style={style}
   />);
 }
 
@@ -29,5 +28,5 @@ const types = {
 Axis.propTypes = { ...propTypes(types) };
 Axis.defaultProps = { ...defaultProps(types) };
 
-export default Axis;
+export default onlyUpdateForKeys(['radius', 'velocity'])(Axis);
 
