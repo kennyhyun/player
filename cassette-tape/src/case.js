@@ -10,6 +10,7 @@ export const Case = (props) => {
     pos,
     velocity,
     style,
+    ...rests
   } = props;
 
   const pulleyRadius = 15;
@@ -21,7 +22,7 @@ export const Case = (props) => {
     margin: 'auto',
     backgroundImage: 'url(/Cassette.svg)',
     ...style,
-  }}>
+  }} {...rests}>
     <Reel length={length - pos} velocity={velocity} style={{
       top: '179px',
       left: '180px',
