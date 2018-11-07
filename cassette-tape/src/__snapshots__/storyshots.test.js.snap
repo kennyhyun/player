@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Cassete tapes Cassette 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "backgroundImage": "url(/Cassette.svg)",
+        "height": "400px",
+        "margin": "auto",
+        "position": "relative",
+        "width": "600px",
+      }
+    }
+  >
+    <div>
+      <div
+        style={
+          Object {
+            "backgroundColor": "black",
+            "borderRadius": "1000px",
+            "height": "258.4px",
+            "left": "180px",
+            "position": "absolute",
+            "top": "179px",
+            "transform": "translate3d(0, 0, 0) translateX(-129.2px) translateY(-129.2px)",
+            "width": "258.4px",
+          }
+        }
+      />
+      <div
+        style={
+          Object {
+            "backgroundColor": "white",
+            "borderRadius": "1000px",
+            "height": "138.2px",
+            "left": "180px",
+            "position": "absolute",
+            "top": "179px",
+            "transform": "translate3d(0, 0, 0) translateX(-69.1px) translateY(-69.1px)",
+            "width": "138.2px",
+          }
+        }
+      />
+      <div
+        className="sc-bdVaJa dWWrIH"
+        radius={89.9}
+        style={
+          Object {
+            "left": "180px",
+            "top": "179px",
+          }
+        }
+      />
+    </div>
+    <div>
+      <div
+        style={
+          Object {
+            "backgroundColor": "black",
+            "borderRadius": "1000px",
+            "height": "148.8px",
+            "left": "431px",
+            "position": "absolute",
+            "top": "179px",
+            "transform": "translate3d(0, 0, 0) translateX(-74.4px) translateY(-74.4px)",
+            "width": "148.8px",
+          }
+        }
+      />
+      <div
+        style={
+          Object {
+            "backgroundColor": "white",
+            "borderRadius": "1000px",
+            "height": "138.2px",
+            "left": "431px",
+            "position": "absolute",
+            "top": "179px",
+            "transform": "translate3d(0, 0, 0) translateX(-69.1px) translateY(-69.1px)",
+            "width": "138.2px",
+          }
+        }
+      />
+      <div
+        className="sc-bdVaJa lcgKjf"
+        radius={89.9}
+        style={
+          Object {
+            "left": "431px",
+            "top": "179px",
+          }
+        }
+      />
+    </div>
+    <div
+      className="sc-bdVaJa jjQEoP"
+      radius={15}
+      style={
+        Object {
+          "left": "575px",
+          "top": "360px",
+        }
+      }
+    />
+    <div
+      className="sc-bdVaJa jjQEoP"
+      radius={15}
+      style={
+        Object {
+          "left": "34px",
+          "top": "360px",
+        }
+      }
+    />
+  </div>
+</div>
+`;

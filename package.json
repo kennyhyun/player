@@ -1,0 +1,18 @@
+{
+  "name": "tape-player",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "link": "cd cassette-tape && npm link && cd ../cassette && npm link cassette-tape",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/kennyhyun/tape-player.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/kennyhyun/tape-player#readme"
+}
