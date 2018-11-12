@@ -11,6 +11,9 @@ function round(val, digit = 1) {
   return Math.round(val * shift) / shift;
 } 
 
+const styles = {
+};
+
 export const Reel = (props) => {
   const {
     thickness = 0.0038,
@@ -30,32 +33,29 @@ export const Reel = (props) => {
   return (<div>
     <div style={{
       position: 'absolute',
-      top: '100px',
-      left: '100px',
+      top: style.top == null ? '100px' : style.top,
+      left: style.left == null ? '100px' : style.left,
       width: `${radiusPx * 2}px`,
       height: `${radiusPx * 2}px`,
       transform: `translate3d(0, 0, 0) translateX(${-radiusPx}px) translateY(${-radiusPx}px)`,
       borderRadius: '1000px',
       backgroundColor: 'black',
-      ...style,
     }}>
     </div>
     <div style={{
       position: 'absolute',
-      top: '100px',
-      left: '100px',
+      top: style.top == null ? '100px' : style.top,
+      left: style.left == null ? '100px' : style.left,
       width: `${axisRadiusPx * 2 - 1}px`,
       height: `${axisRadiusPx * 2 - 1}px`,
       transform: `translate3d(0, 0, 0) translateX(${0.5-axisRadiusPx}px) translateY(${0.5-axisRadiusPx}px)`,
       borderRadius: '1000px',
       backgroundColor: 'white',
-      ...style,
     }}>
     </div>
     <Axis radius={axisRadius} velocity={axisVelocity} style={{
-      top: '100px',
-      left: '100px',
-      ...style,
+      top: style.top == null ? '100px' : style.top,
+      left: style.left == null ? '100px' : style.left,
     }}/>
   </div>);
 };

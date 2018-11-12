@@ -13,7 +13,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const WrappedCassette = withState('pos', 'setPos', 0)(({ pos, setPos }) =>
-    <Cassette pos={pos} length={1800} velocity={1} onClick={
+    <Cassette pos={pos} length={1800} velocity={pos ? 1 : 0} onClick={
       () => console.log(pos) || setPos(pos + 100)
     }/>
   );
