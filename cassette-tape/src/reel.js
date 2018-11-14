@@ -11,15 +11,13 @@ function round(val, digit = 1) {
   return Math.round(val * shift) / shift;
 } 
 
-const styles = {
-};
-
 export const Reel = (props) => {
   const {
     thickness = 0.0038,
     length,
     velocity,
-    style,
+    top = 100,
+    left = 100,
     axisRadius = 29,
   } = props;
 
@@ -30,11 +28,11 @@ export const Reel = (props) => {
   const axisRadiusPx = round(axisRadius * pixelRatio);
   const axisVelocity = round(velocity * axisRadius / radius, 2);
   
-  return (<div>
+  return (<>
     <div style={{
       position: 'absolute',
-      top: style.top == null ? '100px' : style.top,
-      left: style.left == null ? '100px' : style.left,
+      top,
+      left,
       width: `${radiusPx * 2}px`,
       height: `${radiusPx * 2}px`,
       transform: `translate3d(0, 0, 0) translateX(${-radiusPx}px) translateY(${-radiusPx}px)`,
@@ -44,8 +42,8 @@ export const Reel = (props) => {
     </div>
     <div style={{
       position: 'absolute',
-      top: style.top == null ? '100px' : style.top,
-      left: style.left == null ? '100px' : style.left,
+      top,
+      left,
       width: `${axisRadiusPx * 2 - 1}px`,
       height: `${axisRadiusPx * 2 - 1}px`,
       transform: `translate3d(0, 0, 0) translateX(${0.5-axisRadiusPx}px) translateY(${0.5-axisRadiusPx}px)`,
@@ -53,11 +51,8 @@ export const Reel = (props) => {
       backgroundColor: 'white',
     }}>
     </div>
-    <Axis radius={axisRadius} velocity={axisVelocity} style={{
-      top: style.top == null ? '100px' : style.top,
-      left: style.left == null ? '100px' : style.left,
-    }}/>
-  </div>);
+    <Axis radius={axisRadius} velocity={axisVelocity} top={top} left={left} />
+  </>);
 };
 
 const types = {

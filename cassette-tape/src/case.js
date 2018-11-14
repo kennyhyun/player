@@ -7,20 +7,20 @@ import Pulley from './pulley';
 
 const styles = {
   leftReel: {
-    top: '179px',
-    left: '180px',
+    top: 179,
+    left: 180,
   },
   rightReel: {
-    top: '179px',
-    left: '431px',
+    top: 179,
+    left: 431,
   },
   leftPulley: {
-    top: '360px',
-    left: '34px',
+    top: 360,
+    left: 34,
   },
   rightPulley: {
-    top: '360px',
-    left: '575px',
+    top: 360,
+    left: 575,
   },
 };
 
@@ -43,10 +43,10 @@ export const Case = (props) => {
     backgroundImage: 'url(/Cassette.svg)',
     ...style,
   }} {...rests}>
-    <Reel length={length - pos} velocity={velocity} style={styles.leftReel} />
-    <Reel length={pos} velocity={velocity} style={styles.rightReel} />
-    <Pulley radius={pulleyRadius} velocity={velocity * 4} style={styles.leftPulley} />
-    <Pulley radius={pulleyRadius} velocity={velocity * 4} style={styles.rightPulley} />
+    <Reel length={length - pos} velocity={velocity} {...styles.leftReel} />
+    <Reel length={pos} velocity={velocity} {...styles.rightReel} />
+    <Pulley radius={pulleyRadius} velocity={velocity * 4} {...styles.leftPulley} />
+    <Pulley radius={pulleyRadius} velocity={velocity * 4} {...styles.rightPulley} />
   </div>;
 };
 

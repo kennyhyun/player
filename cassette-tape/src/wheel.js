@@ -1,14 +1,14 @@
 import React from 'react';
 import { propTypes, defaultProps } from 'proptypes-helper';
 import styled, { keyframes } from 'styled-components';
-import { onlyUpdateForKeys } from 'recompose';
+import { compose, withProps, onlyUpdateForKeys } from 'recompose';
 
 const rotate = p => keyframes`
   from {
-    transform: translate3d(0, 0, 0) translateX(${-p.radius}px) translateY(${-p.radius}px) rotate(360deg);
+    transform: translateX(${-p.radius}px) translateY(${-p.radius}px) rotate(60deg);
   }
   to {
-    transform: translate3d(0, 0, 0) translateX(${-p.radius}px) translateY(${-p.radius}px) rotate(0deg);
+    transform: translateX(${-p.radius}px) translateY(${-p.radius}px) rotate(0deg);
   }
 `;
 
@@ -19,8 +19,7 @@ const Wheel = styled.div`
   width: ${p => `${p.radius * 2}px`};
   height: ${p => `${p.radius * 2}px`};
   transform: translate3d(0, 0, 0) translateX(${p=>-p.radius}px) translateY(${p=>-p.radius}px);
-  animation: ${p => rotate(p)} ${p => `${p.velocity && 3 / p.velocity}s`} linear;
-  animation-iteration-count: infinite;
+  animation: ${rotate} infinite 0s linear;
 `;
 
 const types = {
@@ -29,7 +28,8 @@ const types = {
     backgroundImage: '',
   },
   optional: {
-    style: {},
+    top: 0,
+    left: 0,
     radius: 29, // mm
   }
 };
@@ -37,4 +37,13 @@ const types = {
 Wheel.propTypes = { ...propTypes(types) };
 Wheel.defaultProps = { ...defaultProps(types) };
 
-export default onlyUpdateForKeys(['style', 'radius', 'backgroundImage', 'velocity'])(Wheel);
+export default compose(
+  onlyUpdateForKeys(['radius', 'backgroundImage', 'velocity']),
+  withProps(p => ({
+    style: {
+      top: p.top,
+      left: p.left,
+      animationDuration: `${p.velocity && 3 / p.velocity / 6}s`
+    }
+  }))
+)(Wheel);
