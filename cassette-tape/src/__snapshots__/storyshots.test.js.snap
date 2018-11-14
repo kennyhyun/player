@@ -4,6 +4,7 @@ exports[`Storyshots Cassete tapes Cassette 1`] = `
 <div>
   <div
     onClick={[Function]}
+    sideIndex={0}
     style={
       Object {
         "backgroundImage": "url(/Cassette.svg)",
@@ -14,103 +15,103 @@ exports[`Storyshots Cassete tapes Cassette 1`] = `
       }
     }
   >
-    <div>
-      <div
-        style={
-          Object {
-            "backgroundColor": "black",
-            "borderRadius": "1000px",
-            "height": "263.8px",
-            "left": "180px",
-            "position": "absolute",
-            "top": "179px",
-            "transform": "translate3d(0, 0, 0) translateX(-131.9px) translateY(-131.9px)",
-            "width": "263.8px",
-          }
-        }
-      />
-      <div
-        style={
-          Object {
-            "backgroundColor": "white",
-            "borderRadius": "1000px",
-            "height": "138.2px",
-            "left": "180px",
-            "position": "absolute",
-            "top": "179px",
-            "transform": "translate3d(0, 0, 0) translateX(-69.1px) translateY(-69.1px)",
-            "width": "138.2px",
-          }
-        }
-      />
-      <div
-        className="sc-bdVaJa jDMoKP"
-        radius={89.9}
-        style={
-          Object {
-            "left": "180px",
-            "top": "179px",
-          }
-        }
-      />
-    </div>
-    <div>
-      <div
-        style={
-          Object {
-            "backgroundColor": "black",
-            "borderRadius": "1000px",
-            "height": "139.2px",
-            "left": "431px",
-            "position": "absolute",
-            "top": "179px",
-            "transform": "translate3d(0, 0, 0) translateX(-69.6px) translateY(-69.6px)",
-            "width": "139.2px",
-          }
-        }
-      />
-      <div
-        style={
-          Object {
-            "backgroundColor": "white",
-            "borderRadius": "1000px",
-            "height": "138.2px",
-            "left": "431px",
-            "position": "absolute",
-            "top": "179px",
-            "transform": "translate3d(0, 0, 0) translateX(-69.1px) translateY(-69.1px)",
-            "width": "138.2px",
-          }
-        }
-      />
-      <div
-        className="sc-bdVaJa ZqiDC"
-        radius={89.9}
-        style={
-          Object {
-            "left": "431px",
-            "top": "179px",
-          }
-        }
-      />
-    </div>
     <div
-      className="sc-bdVaJa jjQEoP"
-      radius={15}
       style={
         Object {
-          "left": "575px",
-          "top": "360px",
+          "backgroundColor": "black",
+          "borderRadius": "1000px",
+          "height": "263.8px",
+          "left": 180,
+          "position": "absolute",
+          "top": 179,
+          "transform": "translate3d(0, 0, 0) translateX(-131.9px) translateY(-131.9px)",
+          "width": "263.8px",
         }
       }
     />
     <div
-      className="sc-bdVaJa jjQEoP"
+      style={
+        Object {
+          "backgroundColor": "white",
+          "borderRadius": "1000px",
+          "height": "138.2px",
+          "left": 180,
+          "position": "absolute",
+          "top": 179,
+          "transform": "translate3d(0, 0, 0) translateX(-69.1px) translateY(-69.1px)",
+          "width": "138.2px",
+        }
+      }
+    />
+    <div
+      className="sc-bdVaJa hspLXz"
+      radius={89.9}
+      style={
+        Object {
+          "animationDuration": "0s",
+          "left": 180,
+          "top": 179,
+        }
+      }
+    />
+    <div
+      style={
+        Object {
+          "backgroundColor": "black",
+          "borderRadius": "1000px",
+          "height": "139.2px",
+          "left": 431,
+          "position": "absolute",
+          "top": 179,
+          "transform": "translate3d(0, 0, 0) translateX(-69.6px) translateY(-69.6px)",
+          "width": "139.2px",
+        }
+      }
+    />
+    <div
+      style={
+        Object {
+          "backgroundColor": "white",
+          "borderRadius": "1000px",
+          "height": "138.2px",
+          "left": 431,
+          "position": "absolute",
+          "top": 179,
+          "transform": "translate3d(0, 0, 0) translateX(-69.1px) translateY(-69.1px)",
+          "width": "138.2px",
+        }
+      }
+    />
+    <div
+      className="sc-bdVaJa hspLXz"
+      radius={89.9}
+      style={
+        Object {
+          "animationDuration": "0s",
+          "left": 431,
+          "top": 179,
+        }
+      }
+    />
+    <div
+      className="sc-bdVaJa fKVtfX"
       radius={15}
       style={
         Object {
-          "left": "34px",
-          "top": "360px",
+          "animationDuration": "0s",
+          "left": 34,
+          "top": 360,
+        }
+      }
+    />
+    <div
+      className="sc-bdVaJa fKVtfX"
+      radius={15}
+      style={
+        Object {
+          "animationDuration": "0s",
+          "left": 575,
+          "top": 360,
         }
       }
     />
