@@ -1,11 +1,11 @@
 import React from 'react';
 import { propTypes, defaultProps } from 'proptypes-helper';
-import { shouldUpdate, shallowEqual } from 'recompose';
+import { onlyUpdateForKeys, compose, withProps } from 'recompose';
 
 import Reel from './reel';
 import Pulley from './pulley';
 
-const styles = {
+const positions = {
   leftReel: {
     top: 179,
     left: 180,
@@ -24,10 +24,18 @@ const styles = {
   },
 };
 
+const trim = (val, min, max) => {
+  if (val < min)
+    return min;
+  if (val > max)
+    return max;
+  return val;
+};
+
 export const Case = (props) => {
   const {
     length,
-    pos,
+    innerPos: pos,
     velocity,
     style,
     ...rests
@@ -43,10 +51,10 @@ export const Case = (props) => {
     backgroundImage: 'url(/Cassette.svg)',
     ...style,
   }} {...rests}>
-    <Reel length={length - pos} velocity={velocity} {...styles.leftReel} />
-    <Reel length={pos} velocity={velocity} {...styles.rightReel} />
-    <Pulley radius={pulleyRadius} velocity={velocity * 4} {...styles.leftPulley} />
-    <Pulley radius={pulleyRadius} velocity={velocity * 4} {...styles.rightPulley} />
+    <Reel length={length - pos} velocity={velocity} {...positions.leftReel} />
+    <Reel length={pos} velocity={velocity} {...positions.rightReel} />
+    <Pulley radius={pulleyRadius} velocity={velocity * 4} {...positions.leftPulley} />
+    <Pulley radius={pulleyRadius} velocity={velocity * 4} {...positions.rightPulley} />
   </div>;
 };
 
@@ -65,9 +73,9 @@ const types = {
 Case.propTypes = { ...propTypes(types) };
 Case.defaultProps = { ...defaultProps(types) };
 
-const changed = ({ props, nextProps }) => {
-  if (!props || !nextProps) return true;
-  return !shallowEqual(props, nextProps);
-};
-
-export default shouldUpdate(changed)(Case);
+export default compose(
+  withProps(p => ({
+    innerPos: trim(p.pos, 0, p.length),
+  })),
+  onlyUpdateForKeys(['innerPos', 'sideIndex', 'velocity'])
+)(Case);
