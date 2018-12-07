@@ -13,12 +13,12 @@ function round(val, digit = 1) {
 
 export const Reel = (props) => {
   const {
-    thickness = 0.0038,
+    thickness,
     length,
     velocity,
     top = 100,
     left = 100,
-    axisRadius = 29,
+    axisRadius,
   } = props;
 
   const pixelRatio = 2.4;
