@@ -1,7 +1,25 @@
 import React from 'react';
+import injectSheet from 'react-jss';
 import { propTypes, defaultProps } from 'proptypes-helper';
 
 import Axis from './axis';
+
+const styles = {
+  reelTape: {
+    position: 'absolute',
+    top: p => p.top,
+    left: p => p.left,
+    borderRadius: 1000,
+    backgroundColor: 'black',
+  },
+  reelCore: {
+    position: 'absolute',
+    top: p => p.top,
+    left: p => p.left,
+    borderRadius: '1000px',
+    backgroundColor: 'white',
+  },
+};
 
 function round(val, digit = 1) {
   if (digit < 1 || digit > 8) {
@@ -13,6 +31,7 @@ function round(val, digit = 1) {
 
 export const Reel = (props) => {
   const {
+    classes,
     thickness,
     length,
     velocity,
@@ -29,26 +48,16 @@ export const Reel = (props) => {
   const axisVelocity = round(velocity * axisRadius / radius, 2);
   
   return (<>
-    <div style={{
-      position: 'absolute',
-      top,
-      left,
+    <div className={classes.reelTape} style={{
       width: `${radiusPx * 2}px`,
       height: `${radiusPx * 2}px`,
       transform: `translate3d(0, 0, 0) translateX(${-radiusPx}px) translateY(${-radiusPx}px)`,
-      borderRadius: '1000px',
-      backgroundColor: 'black',
     }}>
     </div>
-    <div style={{
-      position: 'absolute',
-      top,
-      left,
+    <div className={classes.reelCore} style={{
       width: `${axisRadiusPx * 2 - 1}px`,
       height: `${axisRadiusPx * 2 - 1}px`,
       transform: `translate3d(0, 0, 0) translateX(${0.5-axisRadiusPx}px) translateY(${0.5-axisRadiusPx}px)`,
-      borderRadius: '1000px',
-      backgroundColor: 'white',
     }}>
     </div>
     <Axis radius={axisRadius} velocity={axisVelocity} top={top} left={left} />
@@ -61,7 +70,6 @@ const types = {
     velocity: 0, // positive when cw
   },
   optional: {
-    style: {},
     thickness: 0.0038, // mm
     axisRadius: 29, // mm
   }
@@ -70,5 +78,5 @@ const types = {
 Reel.propTypes = { ...propTypes(types) };
 Reel.defaultProps = { ...defaultProps(types) };
 
-export default Reel;
+export default injectSheet(styles)(Reel);
 
