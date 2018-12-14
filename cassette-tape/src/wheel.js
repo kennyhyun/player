@@ -1,49 +1,62 @@
 import React from 'react';
 import { propTypes, defaultProps } from 'proptypes-helper';
-import styled, { keyframes } from 'styled-components';
-import { compose, withProps, onlyUpdateForKeys } from 'recompose';
+import injectSheet from 'react-jss';
 
-const rotate = p => keyframes`
-  from {
-    transform: translateX(${-p.radius}px) translateY(${-p.radius}px) rotate(60deg);
-  }
-  to {
-    transform: translateX(${-p.radius}px) translateY(${-p.radius}px) rotate(0deg);
-  }
-`;
+const styles = {
+  wheel: {
+    position: 'absolute',
+    backgroundSize: 'cover',
+    backgroundImage: p => p.backgroundImage,
+    width: p => p.radius * 2,
+    height: p => p.radius * 2,
+    transform: p => `translate3d(${-p.radius}px, ${-p.radius}px, 0) rotate(0deg)`,
+    top: p => p.top,
+    left: p => p.left,
+  },
+};
 
-const Wheel = styled.div`
-  position: absolute;
-  background-size: cover;
-  background-image: ${p => p.backgroundImage};
-  width: ${p => `${p.radius * 2}px`};
-  height: ${p => `${p.radius * 2}px`};
-  transform: translate3d(0, 0, 0) translateX(${p=>-p.radius}px) translateY(${p=>-p.radius}px);
-  animation: ${rotate} infinite 0s linear;
-`;
+class Wheel extends React.Component {
+  constructor(p) {
+    super(p);
+    this.ref = React.createRef();
+  }
+  shouldComponentUpdate(p) {
+    const { ref: { current: elem } } = this;
+    elem.style.transition = `transform ${p.velocity && 3 / p.velocity / 6}s linear`;
+    elem.style.transform = `translate3d(${-p.radius}px, ${-p.radius}px, 0) rotate(60deg)`;
+    return false;
+  }
+  transitionEnd = (e) => {
+    const { ref: { current: elem }, props: p } = this;
+    elem.style.transition = 'none';
+    elem.style.transform = `translateX(${-p.radius}px) translateY(${-p.radius}px) rotate(0deg)`;
+    setTimeout(() => {
+      elem.style.transition = `transform ${(p.velocity && 3 / p.velocity / 6)}s linear`;
+      elem.style.transform = `translate3d(${-p.radius}px, ${-p.radius}px, 0) rotate(60deg)`;
+    });
+  }
+  render() {
+    return (
+      <div className={this.props.classes.wheel} ref={this.ref} onTransitionEnd={this.transitionEnd} />
+    );
+  }
+}
 
 const types = {
   required: {
-    velocity: 0, // positive when cw
+    // velocity: positive when cw
+    velocity: 0,
+    // backgroundImage hexagonal image
     backgroundImage: '',
   },
   optional: {
     top: 0,
     left: 0,
-    radius: 29, // mm
+    radius: 29, // ~ mm
   }
 };
 
 Wheel.propTypes = { ...propTypes(types) };
 Wheel.defaultProps = { ...defaultProps(types) };
 
-export default compose(
-  onlyUpdateForKeys(['radius', 'backgroundImage', 'velocity']),
-  withProps(p => ({
-    style: {
-      top: p.top,
-      left: p.left,
-      animationDuration: `${p.velocity && 3 / p.velocity / 6}s`
-    }
-  }))
-)(Wheel);
+export default injectSheet(styles)(Wheel);
