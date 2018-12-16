@@ -30,13 +30,8 @@
     "babel-plugin-require-context-hook": "^1.0.0",
     "enzyme": "^3.7.0",
     "jest": "^23.6.0",
-    "proptypes-helper": "^0.1.2",
-    "react": "^16.6.0",
-    "react-dom": "^16.6.0",
     "react-test-renderer": "^16.6.1",
-    "recompose": "^0.30.0",
     "storybook": "^1.0.0",
-    "styled-components": "^4.0.3",
     "why-did-you-update": "^1.0.2"
   },
   "jest": {
@@ -45,6 +40,10 @@
     ]
   },
   "dependencies": {
-    "react-jss": "^8.6.1"
+    "proptypes-helper": "^0.1.2",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
+    "react-jss": "^8.6.1",
+    "recompose": "^0.30.0"
   }
 }
