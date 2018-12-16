@@ -64,7 +64,7 @@ const types = {
   optional: {
     length: 1800,
     pos: 0,
-    sideIndex: 0,
+    sideindex: 0,
     velocity: 0,
     style: {},
   }
