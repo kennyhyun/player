@@ -19,22 +19,40 @@ class Wheel extends React.Component {
   constructor(p) {
     super(p);
     this.ref = React.createRef();
+    this.keepRotating = false;
   }
-  shouldComponentUpdate(p) {
-    const { ref: { current: elem } } = this;
-    elem.style.transition = `transform ${p.velocity && 3 / p.velocity / 6}s linear`;
-    elem.style.transform = `translate3d(${-p.radius}px, ${-p.radius}px, 0) rotate(60deg)`;
+
+  shouldComponentUpdate = (p) => {
+    if (p.velocity === 0) {
+      this.keepRotating = false;
+    } else if (!this.keepRotating) {
+      this.keepRotating = true;
+      this.rotate(p.velocity);
+    }
     return false;
   }
-  transitionEnd = (e) => {
+
+  rotate = velocity => {
     const { ref: { current: elem }, props: p } = this;
     elem.style.transition = 'none';
     elem.style.transform = `translateX(${-p.radius}px) translateY(${-p.radius}px) rotate(0deg)`;
     setTimeout(() => {
-      elem.style.transition = `transform ${(p.velocity && 3 / p.velocity / 6)}s linear`;
-      elem.style.transform = `translate3d(${-p.radius}px, ${-p.radius}px, 0) rotate(60deg)`;
+      elem.style.transition = `transform ${(velocity && 3 / velocity / 6)}s linear`;
+      if (velocity) {
+        elem.style.transform = `translate3d(${-p.radius}px, ${-p.radius}px, 0) rotate(-60deg)`;
+      } else {
+        elem.style.transform = `translate3d(${-p.radius}px, ${-p.radius}px, 0) rotate(0deg)`;
+      }
     });
   }
+
+  transitionEnd = (e) => {
+    const { ref: { current: elem }, props: p } = this;
+    if (this.keepRotating) {
+      this.rotate(p.velocity);
+    }
+  }
+
   render() {
     return (
       <div className={this.props.classes.wheel} ref={this.ref} onTransitionEnd={this.transitionEnd} />
