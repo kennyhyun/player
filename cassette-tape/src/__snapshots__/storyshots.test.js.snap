@@ -5,7 +5,7 @@ exports[`Storyshots Cassete tapes Cassette 1`] = `
   <div
     onClick={[Function]}
     pos={0}
-    sideIndex={0}
+    sideindex={0}
     style={
       Object {
         "backgroundImage": "url(/Cassette.svg)",
@@ -37,11 +37,20 @@ exports[`Storyshots Cassete tapes Cassette 1`] = `
       }
     />
     <div
-      className="Wheel-wheel-0-1-5 Wheel-wheel-0-1-6"
+      className="Wheel-wheel-0-1-5 Wheel-wheel-0-1-7"
       onTransitionEnd={[Function]}
     />
     <div
-      className="Reel-reelTape-0-1-1 Reel-reelTape-0-1-7"
+      className="Wheel-wheel-0-1-5 Wheel-wheel-0-1-7 Wheel-animating-0-1-6"
+      onTransitionEnd={[Function]}
+      style={
+        Object {
+          "--wheel-radius": "-89.9px",
+        }
+      }
+    />
+    <div
+      className="Reel-reelTape-0-1-1 Reel-reelTape-0-1-8"
       style={
         Object {
           "height": "139.2px",
@@ -51,7 +60,7 @@ exports[`Storyshots Cassete tapes Cassette 1`] = `
       }
     />
     <div
-      className="Reel-reelCore-0-1-2 Reel-reelCore-0-1-8"
+      className="Reel-reelCore-0-1-2 Reel-reelCore-0-1-9"
       style={
         Object {
           "height": "138.2px",
@@ -61,16 +70,43 @@ exports[`Storyshots Cassete tapes Cassette 1`] = `
       }
     />
     <div
-      className="Wheel-wheel-0-1-5 Wheel-wheel-0-1-9"
-      onTransitionEnd={[Function]}
-    />
-    <div
       className="Wheel-wheel-0-1-5 Wheel-wheel-0-1-10"
       onTransitionEnd={[Function]}
     />
     <div
+      className="Wheel-wheel-0-1-5 Wheel-wheel-0-1-10 Wheel-animating-0-1-6"
+      onTransitionEnd={[Function]}
+      style={
+        Object {
+          "--wheel-radius": "-89.9px",
+        }
+      }
+    />
+    <div
       className="Wheel-wheel-0-1-5 Wheel-wheel-0-1-11"
       onTransitionEnd={[Function]}
+    />
+    <div
+      className="Wheel-wheel-0-1-5 Wheel-wheel-0-1-11 Wheel-animating-0-1-6"
+      onTransitionEnd={[Function]}
+      style={
+        Object {
+          "--wheel-radius": "-15px",
+        }
+      }
+    />
+    <div
+      className="Wheel-wheel-0-1-5 Wheel-wheel-0-1-12"
+      onTransitionEnd={[Function]}
+    />
+    <div
+      className="Wheel-wheel-0-1-5 Wheel-wheel-0-1-12 Wheel-animating-0-1-6"
+      onTransitionEnd={[Function]}
+      style={
+        Object {
+          "--wheel-radius": "-15px",
+        }
+      }
     />
   </div>
 </div>
