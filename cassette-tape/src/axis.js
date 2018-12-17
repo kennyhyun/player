@@ -4,13 +4,6 @@ import { lifecycle, withProps, compose, onlyUpdateForKeys } from 'recompose';
 import Wheel from './wheel';
 
 const Axis = compose(
-  /*
-  lifecycle({
-    componentDidUpdate(prev) {
-      console.log('axis rendered', prev, this.props);
-    }
-  }),
-  */
   onlyUpdateForKeys(['radius', 'velocity']),
   withProps(props => ({
     backgroundImage: 'url(/wheel.svg)',
