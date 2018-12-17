@@ -1,26 +1,23 @@
 import React from 'react';
 import { propTypes, defaultProps } from 'proptypes-helper';
-import { onlyUpdateForKeys } from 'recompose';
+import { lifecycle, withProps, compose, onlyUpdateForKeys } from 'recompose';
 import Wheel from './wheel';
 
-export const Axis = (props) => {
-  const { velocity, style, radius } = props;
-  const pixelRatio = 1.55;
-  const radiusPx = radius * pixelRatio;
-  return (<Wheel
-    backgroundImage={'url(/wheel.svg)'}
-    velocity={velocity}
-    radius={radiusPx * 2}
-    style={style}
-  />);
-}
+const Axis = compose(
+  onlyUpdateForKeys(['radius', 'velocity']),
+  withProps(props => ({
+    backgroundImage: 'url(/wheel.svg)',
+    radius: props.radius * 1.55 * 2,
+  }))
+)(Wheel);
 
 const types = {
   required: {
     velocity: 0, // positive when cw
   },
   optional: {
-    style: {},
+    top: 0,
+    left: 0,
     radius: 29, // mm
   }
 };
@@ -28,5 +25,4 @@ const types = {
 Axis.propTypes = { ...propTypes(types) };
 Axis.defaultProps = { ...defaultProps(types) };
 
-export default onlyUpdateForKeys(['radius', 'velocity'])(Axis);
-
+export default Axis;

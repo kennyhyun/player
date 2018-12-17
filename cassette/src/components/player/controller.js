@@ -357,7 +357,7 @@ class FullControl extends React.Component {
     // this.logStatus();
     return (
       <div className='full-control'>
-        <Cassette pos={pos} length={1800} velocity={velocity} />
+        <Cassette pos={pos.toFixed()} length={1800} velocity={velocity} />
         <PlayerUI
           {...uiProps}
           pos={pos}

@@ -4,6 +4,8 @@ exports[`Storyshots Cassete tapes Cassette 1`] = `
 <div>
   <div
     onClick={[Function]}
+    pos={0}
+    sideindex={0}
     style={
       Object {
         "backgroundImage": "url(/Cassette.svg)",
@@ -14,103 +16,95 @@ exports[`Storyshots Cassete tapes Cassette 1`] = `
       }
     }
   >
-    <div>
-      <div
-        style={
-          Object {
-            "backgroundColor": "black",
-            "borderRadius": "1000px",
-            "height": "263.8px",
-            "left": "180px",
-            "position": "absolute",
-            "top": "179px",
-            "transform": "translate3d(0, 0, 0) translateX(-131.9px) translateY(-131.9px)",
-            "width": "263.8px",
-          }
-        }
-      />
-      <div
-        style={
-          Object {
-            "backgroundColor": "white",
-            "borderRadius": "1000px",
-            "height": "138.2px",
-            "left": "180px",
-            "position": "absolute",
-            "top": "179px",
-            "transform": "translate3d(0, 0, 0) translateX(-69.1px) translateY(-69.1px)",
-            "width": "138.2px",
-          }
-        }
-      />
-      <div
-        className="sc-bdVaJa jDMoKP"
-        radius={89.9}
-        style={
-          Object {
-            "left": "180px",
-            "top": "179px",
-          }
-        }
-      />
-    </div>
-    <div>
-      <div
-        style={
-          Object {
-            "backgroundColor": "black",
-            "borderRadius": "1000px",
-            "height": "139.2px",
-            "left": "431px",
-            "position": "absolute",
-            "top": "179px",
-            "transform": "translate3d(0, 0, 0) translateX(-69.6px) translateY(-69.6px)",
-            "width": "139.2px",
-          }
-        }
-      />
-      <div
-        style={
-          Object {
-            "backgroundColor": "white",
-            "borderRadius": "1000px",
-            "height": "138.2px",
-            "left": "431px",
-            "position": "absolute",
-            "top": "179px",
-            "transform": "translate3d(0, 0, 0) translateX(-69.1px) translateY(-69.1px)",
-            "width": "138.2px",
-          }
-        }
-      />
-      <div
-        className="sc-bdVaJa ZqiDC"
-        radius={89.9}
-        style={
-          Object {
-            "left": "431px",
-            "top": "179px",
-          }
-        }
-      />
-    </div>
     <div
-      className="sc-bdVaJa jjQEoP"
-      radius={15}
+      className="Reel-reelTape-0-1-1 Reel-reelTape-0-1-3"
       style={
         Object {
-          "left": "575px",
-          "top": "360px",
+          "height": "263.8px",
+          "transform": "translate3d(0, 0, 0) translateX(-131.9px) translateY(-131.9px)",
+          "width": "263.8px",
         }
       }
     />
     <div
-      className="sc-bdVaJa jjQEoP"
-      radius={15}
+      className="Reel-reelCore-0-1-2 Reel-reelCore-0-1-4"
       style={
         Object {
-          "left": "34px",
-          "top": "360px",
+          "height": "138.2px",
+          "transform": "translate3d(0, 0, 0) translateX(-69.1px) translateY(-69.1px)",
+          "width": "138.2px",
+        }
+      }
+    />
+    <div
+      className="Wheel-wheel-0-1-5 Wheel-wheel-0-1-7"
+      onTransitionEnd={[Function]}
+    />
+    <div
+      className="Wheel-wheel-0-1-5 Wheel-wheel-0-1-7 Wheel-animating-0-1-6"
+      onTransitionEnd={[Function]}
+      style={
+        Object {
+          "--wheel-radius": "-89.9px",
+        }
+      }
+    />
+    <div
+      className="Reel-reelTape-0-1-1 Reel-reelTape-0-1-8"
+      style={
+        Object {
+          "height": "139.2px",
+          "transform": "translate3d(0, 0, 0) translateX(-69.6px) translateY(-69.6px)",
+          "width": "139.2px",
+        }
+      }
+    />
+    <div
+      className="Reel-reelCore-0-1-2 Reel-reelCore-0-1-9"
+      style={
+        Object {
+          "height": "138.2px",
+          "transform": "translate3d(0, 0, 0) translateX(-69.1px) translateY(-69.1px)",
+          "width": "138.2px",
+        }
+      }
+    />
+    <div
+      className="Wheel-wheel-0-1-5 Wheel-wheel-0-1-10"
+      onTransitionEnd={[Function]}
+    />
+    <div
+      className="Wheel-wheel-0-1-5 Wheel-wheel-0-1-10 Wheel-animating-0-1-6"
+      onTransitionEnd={[Function]}
+      style={
+        Object {
+          "--wheel-radius": "-89.9px",
+        }
+      }
+    />
+    <div
+      className="Wheel-wheel-0-1-5 Wheel-wheel-0-1-11"
+      onTransitionEnd={[Function]}
+    />
+    <div
+      className="Wheel-wheel-0-1-5 Wheel-wheel-0-1-11 Wheel-animating-0-1-6"
+      onTransitionEnd={[Function]}
+      style={
+        Object {
+          "--wheel-radius": "-15px",
+        }
+      }
+    />
+    <div
+      className="Wheel-wheel-0-1-5 Wheel-wheel-0-1-12"
+      onTransitionEnd={[Function]}
+    />
+    <div
+      className="Wheel-wheel-0-1-5 Wheel-wheel-0-1-12 Wheel-animating-0-1-6"
+      onTransitionEnd={[Function]}
+      style={
+        Object {
+          "--wheel-radius": "-15px",
         }
       }
     />

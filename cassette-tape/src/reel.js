@@ -1,7 +1,25 @@
 import React from 'react';
+import injectSheet from 'react-jss';
 import { propTypes, defaultProps } from 'proptypes-helper';
 
 import Axis from './axis';
+
+const styles = {
+  reelTape: {
+    position: 'absolute',
+    top: p => p.top,
+    left: p => p.left,
+    borderRadius: 1000,
+    backgroundColor: 'black',
+  },
+  reelCore: {
+    position: 'absolute',
+    top: p => p.top,
+    left: p => p.left,
+    borderRadius: '1000px',
+    backgroundColor: 'white',
+  },
+};
 
 function round(val, digit = 1) {
   if (digit < 1 || digit > 8) {
@@ -11,16 +29,15 @@ function round(val, digit = 1) {
   return Math.round(val * shift) / shift;
 } 
 
-const styles = {
-};
-
 export const Reel = (props) => {
   const {
-    thickness = 0.0038,
+    classes,
+    thickness,
     length,
     velocity,
-    style,
-    axisRadius = 29,
+    top = 100,
+    left = 100,
+    axisRadius,
   } = props;
 
   const pixelRatio = 2.4;
@@ -30,34 +47,21 @@ export const Reel = (props) => {
   const axisRadiusPx = round(axisRadius * pixelRatio);
   const axisVelocity = round(velocity * axisRadius / radius, 2);
   
-  return (<div>
-    <div style={{
-      position: 'absolute',
-      top: style.top == null ? '100px' : style.top,
-      left: style.left == null ? '100px' : style.left,
+  return (<>
+    <div className={classes.reelTape} style={{
       width: `${radiusPx * 2}px`,
       height: `${radiusPx * 2}px`,
       transform: `translate3d(0, 0, 0) translateX(${-radiusPx}px) translateY(${-radiusPx}px)`,
-      borderRadius: '1000px',
-      backgroundColor: 'black',
     }}>
     </div>
-    <div style={{
-      position: 'absolute',
-      top: style.top == null ? '100px' : style.top,
-      left: style.left == null ? '100px' : style.left,
+    <div className={classes.reelCore} style={{
       width: `${axisRadiusPx * 2 - 1}px`,
       height: `${axisRadiusPx * 2 - 1}px`,
       transform: `translate3d(0, 0, 0) translateX(${0.5-axisRadiusPx}px) translateY(${0.5-axisRadiusPx}px)`,
-      borderRadius: '1000px',
-      backgroundColor: 'white',
     }}>
     </div>
-    <Axis radius={axisRadius} velocity={axisVelocity} style={{
-      top: style.top == null ? '100px' : style.top,
-      left: style.left == null ? '100px' : style.left,
-    }}/>
-  </div>);
+    <Axis radius={axisRadius} velocity={axisVelocity} top={top} left={left} />
+  </>);
 };
 
 const types = {
@@ -66,7 +70,6 @@ const types = {
     velocity: 0, // positive when cw
   },
   optional: {
-    style: {},
     thickness: 0.0038, // mm
     axisRadius: 29, // mm
   }
@@ -75,5 +78,5 @@ const types = {
 Reel.propTypes = { ...propTypes(types) };
 Reel.defaultProps = { ...defaultProps(types) };
 
-export default Reel;
+export default injectSheet(styles)(Reel);
 
